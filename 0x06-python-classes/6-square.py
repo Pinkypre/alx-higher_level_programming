@@ -1,17 +1,53 @@
 #!/usr/bin/python3
-Square = __import__('6-square').Square
+class Square:
+    """Defines a square"""
+    def __init__(self, size=0, position=(0, 0)):
+        """Initialises the data"""
+        self.size = size
+        self.position = position
 
-my_square_1 = Square(3)
-my_square_1.my_print()
+    def area(self):
+        """Returns current square area"""
+        return self.__size**2
 
-print("--")
+    @property
+    def size(self):
+        """Getter method"""
+        return self.__size
 
-my_square_2 = Square(3, (1, 1))
-my_square_2.my_print()
+    @size.setter
+    def size(self, value):
+        """Setter method"""
+        self.__size = value
+        if type(value) != int:
+            raise TypeError("size must be an integer")
+        if value < 0:
+            raise ValueError("size must be >= 0")
 
-print("--")
+    def my_print(self):
+        """Prints the square"""
+        if self.__size == 0:
+            print()
+        else:
+            for y in range(self.__position[1]):
+                print()
+            for i in range(self.__size):
+                for x in range(self.__position[0]):
+                    print(' ', end='')
+                for j in range(self.__size):
+                    print('#', end='')
+                print()
 
-my_square_3 = Square(3, (3, 0))
-my_square_3.my_print()
+    @property
+    def position(self):
+        """Getter method"""
+        return self.__position
 
-print("--")
+    @position.setter
+    def position(self, value):
+        """Setter method"""
+        if type(value) != tuple or len(value) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if any(type(i) != int for i in value) or any(j < 0 for j in value):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = value
